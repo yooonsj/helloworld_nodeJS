@@ -28,7 +28,20 @@ var Tweet = {
             , function(error, tweets, response){
                 if(error) throw error;
 
-                console.log(tweets);
+                var text = '';
+                tweets.statuses.forEach(function(elem, index, array) {
+                    text += elem.user.name + ' : ' + elem.text + ' at ' + elem.created_at + '\n';
+                });
+
+                fs.open('./tweets.txt', 'a', 0666, function(err, fd) {
+                    if(err) throw err;
+                    var buffer = new Buffer(text);
+                    fs.write(fd, buffer, 0, buffer.length, null, function(err) {
+                        fs.close(fd, function() {
+
+                        });
+                    });
+                });
             }
         );
     }
