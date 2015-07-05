@@ -1,0 +1,25 @@
+{
+  "name": "helloworld_nodejs",
+  "version": "1.0.0",
+  "description": "NODEJS 프로그래밍 예제",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yooonsj/helloworld_nodeJS.git"
+  },
+  "keywords": [
+    "nodeJS"
+  ],
+  "author": "yooonsj",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yooonsj/helloworld_nodeJS/issues"
+  },
+  "homepage": "https://github.com/yooonsj/helloworld_nodeJS#readme",
+  "dependencies": {
+    "restler": "^3.3.0"
+  }
+}
