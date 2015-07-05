@@ -1,0 +1,11 @@
+#intelliJ
+.idea
+
+#test file
+*.txt
+
+#log
+*.out
+
+#node modules
+node_modules
