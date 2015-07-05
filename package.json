@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/yooonsj/helloworld_nodeJS#readme",
   "dependencies": {
+    "node-schedule": "^0.2.9",
     "restler": "^3.3.0",
     "twitter": "^1.2.5"
   }
