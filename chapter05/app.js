@@ -9,7 +9,8 @@ process.env.TWITTER_ACCESS_TOKEN_KEY = '3268781755-7BlP6vtDlpE5ifvvyGpIyESSVmJdz
 process.env.TWITTER_ACCESS_TOKEN_SECRET = 'FSJYgpQu1V0AGxO3hduMUmTT6RQKmA48dFFx1Dn2rWEbV';
 
 var Twitter = require('twitter')
-    , fs = require('fs');
+    , fs = require('fs')
+    , schedule = require('node-schedule');
 
 var client = new Twitter({
     consumer_key: process.env.TWITTER_CONSUMER_KEY,
@@ -61,4 +62,12 @@ var Tweet = {
     }
 };
 
-Tweet.getTweets('#nodejs');
+var rule = new schedule.RecurrenceRule();
+rule.hour = new schedule.Range(0, 23);
+rule.second = new schedule.Range(0, 59, 10);
+//rule.minute = [0, 10, 20, 30, 40, 50];
+
+var j = schedule.scheduleJob(rule, function() {
+    Tweet.getTweets('#nodejs');
+    console.log('Backup is completed at ' + new Date());
+});
