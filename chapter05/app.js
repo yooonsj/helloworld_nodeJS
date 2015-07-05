@@ -20,8 +20,14 @@ var client = new Twitter({
 
 var Tweet = {
     sinceId: '1'
+    , isOpened: false
     , getTweets: function(search, callback) {
         search = encodeURIComponent(search);
+
+        fs.readFile('./maxid.txt', function(err, maxId) {
+            if(err) {Tweet.sinceId = 1;}
+            else {Tweet.sinceId = maxId;}
+        })
 
         client.get('search/tweets.json'
             , {q: search, result_type: 'recent', rpp: 100, since_id: this.since_id}
@@ -33,15 +39,23 @@ var Tweet = {
                     text += elem.user.name + ' : ' + elem.text + ' at ' + elem.created_at + '\n';
                 });
 
-                fs.open('./tweets.txt', 'a', 0666, function(err, fd) {
-                    if(err) throw err;
-                    var buffer = new Buffer(text);
-                    fs.write(fd, buffer, 0, buffer.length, null, function(err) {
-                        fs.close(fd, function() {
+                if(!Tweet.isOpened) {
+                    fs.open('./tweets.txt', 'a', 0666, function(err, fd) {
+                        if(err) throw err;
 
+                        Tweet.isOpened = true;
+                        var buffer = new Buffer(text);
+                        fs.write(fd, buffer, 0, buffer.length, null, function(err) {
+                            fs.close(fd, function() {
+                                Tweet.isOpened = false;
+                                fs.writeFile('./maxid.txt'
+                                    , tweets.search_metadata.max_id_str
+                                    , function(err) {}
+                                )
+                            });
                         });
                     });
-                });
+                }
             }
         );
     }
