@@ -1,0 +1,20 @@
+{
+  "name": "joinin",
+  "version": "0.0.0",
+  "homepage": "https://github.com/yooonsj/helloworld_nodeJS",
+  "authors": [
+    "yooonsj <yooonsj@gmail.com>"
+  ],
+  "moduleType": [
+    "node"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "components",
+    "test",
+    "tests"
+  ]
+}

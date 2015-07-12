@@ -1,0 +1,24 @@
+//
+   Created by Sangjun on 2015. 7. 12..
+
+extends layout
+
+block content
+   h3 회원가입
+   p 회원에 가입해주세요.
+   form(id='joinForm', method='POST', action='/join')
+      label(for='name') 이름 :
+      input(type='text', name='name', id='name')
+      label(for='email',) 이메일 :
+      input(type='text', name='email', id='email')
+      input(type='submit', value='전송')
+
+   script(type='text/javascript').
+      $(function() {
+         $('#joinForm').submit(function(e) {
+            if($.trim($('#name').val()) === '' || $.trim($('#email').val()) === '') {
+               alert('이름과 이메일을 입력해 주세요.');
+               return false;
+            }
+         });
+      });
