@@ -3,7 +3,7 @@
  */
 
 var Mongolian = require('mongolian')
-    , server = new Mongolian('52.69.124.25:27017')
+    , server = new Mongolian('52.69.43.84:27017')
     , db = server.db('nodeJS_test')
     , users = db.collection('members');
 
