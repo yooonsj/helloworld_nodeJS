@@ -1,0 +1,17 @@
+//
+   Created by Sangjun on 2015. 7. 26..
+extends layout
+
+block content
+- if (isSuccess)
+   script.
+      alert('방이 만들어졌습니다.');
+      location.href = '/join/#{roomName}';
+- else if (roomName === '')
+   script.
+      alert('방을 만들지 못 했습니다.');
+      location.href = '/enter';
+- else
+   script.
+      alert('이미 존재하는 방입니다.');
+      location.href = '/enter';
