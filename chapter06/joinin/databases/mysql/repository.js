@@ -6,7 +6,7 @@ var mysql = require('mysql')
     , DATABASE = 'nodeJS_test'
     , TABLE = 'members'
     , client = mysql.createConnection({
-        host: '52.69.124.25'
+        host: '52.69.43.84'
         , port: '3306'
         , user: 'root'
         , password: '1234'

@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-// var mysqlRepo = require('../databases/mysql/repository');
+var mysqlRepo = require('../databases/mysql/repository');
 var mongodbRepo = require('../databases/mongodb/repository');
 
 /* GET home page. */
@@ -20,8 +20,8 @@ router.post('/join', function(req, res, next) {
 
   });*/
 
-  //mysqlRepo.hasNameAndEmail(req.body, res);
-  mongodbRepo.insertUser(req.body, res);
+  mysqlRepo.hasNameAndEmail(req.body, res);
+  // mongodbRepo.insertUser(req.body, res);
 })
 
 module.exports = router;
