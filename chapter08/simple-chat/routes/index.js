@@ -11,7 +11,6 @@ router.get('/', function(req, res, next) {
 router.post('/enter', function(req, res) {
   var isSuccess = false,
       nickname = req.body.nickname;
-
   if (nickname && nickname.trim() !== '') {
     if (!Chat.hasUser(nickname)) {
       Chat.addUser(nickname);

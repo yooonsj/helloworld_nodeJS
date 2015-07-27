@@ -3,45 +3,45 @@
 extends layout
 
 block content
-- if (!isSuccess)
-   script.
-      alert('방에 입장할 수 없습니다.');
-      location.href = '/enter';
-- else
-   h3 방제 :
-      span#roomName= roomName
+   - if (!isSuccess)
+      script.
+         alert('방에 입장할 수 없습니다.');
+         location.href = '/enter';
+   - else
+      h3 방제 :
+         span#roomName= roomName
 
-   #chatWindow(style='width: 400px;height: 400px;overflow: auto;border: 1px solid #000;float: left;margin-right: 10px')
-   div(style='widht: 100px;height: 400px;overflow: auto;border: 1px solid #000')
-      p 참가자
-      ul#attendants
-   form
-      span#myName #{nickName}
-      input(type='text', style='width: 300px')#messaeg
-      input(type='submit', value='보내기')
+      #chatWindow(style='width: 400px;height: 400px;overflow: auto;border: 1px solid #000;float: left;margin-right: 10px')
+      div(style='widht: 100px;height: 400px;overflow: auto;border: 1px solid #000')
+         p 참가자
+         ul#attendants
+      form
+         span#myName #{nickName}
+         input(type='text', style='width: 300px')#messaeg
+         input(type='submit', value='보내기')
 
-   script.
-      $(function() {
-         var room = io.connect('/room');
-         var chatWindow = $('#chatWindow');
-         var messageBox = $('#message');
-         var myName = $('#myname').text();
+      script.
+         $(function() {
+            var room = io.connect('/room');
+            var chatWindow = $('#chatWindow');
+            var messageBox = $('#message');
+            var myName = $('#myname').text();
 
-         function showMessage(msg) {
-            chatWindow.append($('<p>').text(msg));
-            chatWindow.scrollTop(chatWindow.height());
-         };
+            function showMessage(msg) {
+               chatWindow.append($('<p>').text(msg));
+               chatWindow.scrollTop(chatWindow.height());
+            };
 
-         room.on('connect', function() {
-            room.emit('join', {
-               roomName: $('#roomName').text(),
-               nickName: myName
+            room.on('connect', function() {
+               room.emit('join', {
+                  roomName: $('#roomName').text(),
+                  nickName: myName
+               });
+            });
+
+            room.on('joined', function(data) {
+               if(data.isSuccess) {
+                  showMessage(data.nickName + '님이 입장하셨습니다.');
+               }
             });
          });
-
-         room.on('joined', function(data) {
-            if(data.isSuccess) {
-               showMessage(data.nickName + '님이 입장하셨습니다.');
-            }
-         });
-      });

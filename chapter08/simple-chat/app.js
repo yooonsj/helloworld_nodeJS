@@ -27,7 +27,9 @@ app.use(session({
   saveUninitialized: true
 }));
 
-app.use('/components', express.static(path.join(__dirname, 'public/components')));
+app.use('/js', express.static(path.join(__dirname, 'public/javascripts')));
+app.use('/css', express.static(path.join(__dirname, 'public/stylesheets')));
+app.use('/bower', express.static(path.join(__dirname, 'public/components')));
 app.use(logger());
 
 app.use('/', routes);
