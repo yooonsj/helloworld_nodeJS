@@ -5,7 +5,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('index', { title: 'Simple Chat' });
 });
 
 router.post('/enter', function(req, res) {
@@ -69,8 +69,9 @@ router.get('/join/:id', function(req, res) {
   res.render('room', {
     isSuccess: isSuccess,
     roomName: roomName,
-    nickName: req.session.nickname
+    nickName: req.session.nickname,
+    attendants: Chat.getAttendantsList(roomName)
   });
-})
+});
 
 module.exports = router;

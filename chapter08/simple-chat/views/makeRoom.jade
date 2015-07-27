@@ -4,9 +4,18 @@ extends layout
 
 block content
    - if (isSuccess)
-      script.
-         alert('방이 만들어졌습니다.');
-         location.href = '/join/#{roomName}';
+      script(type='text/javascript').
+         var roomName = '#{roomName}';
+         var waitingRoom = io(location.host + '/waitingRoom');
+
+         waitingRoom.on('connect', function() {
+            waitingRoom.emit('makeWaitingRoom', {roomName: roomName}, function(data) {
+               if (data.isSuccess) {
+                  alert('방이 만들어졌습니다.');
+                  location.href = '/join/' + roomName;
+               }
+            });
+         });
    - else if (roomName === '')
       script.
          alert('방을 만들지 못 했습니다.');

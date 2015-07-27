@@ -10,12 +10,26 @@ block content
             label(for='roomname') 방제
             input(type='text', id='roomname', name='roomname')
             input(type='submit', value='방 만들기')
-      ul
+      ul#roomList
          each room in roomList
             li= room
                input(type='button', value='입장', onclick='location.href = \'/join/' + room + '\'')
+
+      script(type='text/javascript').
+         var waitingRoom = io(location.host + '/waitingRoom');
+         waitingRoom.on('connect', function() {
+            waitingRoom.emit('join', {nickName: '#{nickname}'});
+         });
+
+         waitingRoom.on('madeWaitingRoom', function(data) {
+            $('#roomList').append('<li>' + data.roomName + '<input type="button" value="입장" onclick="location.href = \'/join/' + data.roomName + '\'"/></li>');
+         });
    - else
       - if (nickname === '')
          script(type='text/javascript').
             alert('잘못된 닉네임입니다.');
+            history.go(-1);
+      - else
+         script(type='text/javascript').
+            alert('사용중인 닉네임입니다.');
             history.go(-1);
